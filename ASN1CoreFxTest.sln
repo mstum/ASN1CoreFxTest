@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASN1CoreFxTest", "ASN1CoreFxTest\ASN1CoreFxTest.csproj", "{8AE0F6EE-DCB8-457F-9040-428DD99548A4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{34E8534E-F2B4-4F81-8274-A78D41CE31EA}"
+	ProjectSection(SolutionItems) = preProject
+		krb5v2-rfc4120.txt = krb5v2-rfc4120.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
