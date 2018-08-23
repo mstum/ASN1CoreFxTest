@@ -52,21 +52,21 @@ namespace ASN1Serialize
         [ExpectedTag(6)]
         public KrbErrorCode ErrorCode { get; set; }
 
-        [IA5String]
+        [Realm]
         [ExpectedTag(7)]
         public string CRealm { get; set; }
 
         [ExpectedTag(8)]
         public PrincipalName CName { get; set; }
 
-        [IA5String]
+        [Realm]
         [ExpectedTag(9)]
         public string ServiceRealm { get; set; }
 
         [ExpectedTag(10)]
         public PrincipalName SName { get; set; }
 
-        [IA5String]
+        [KerberosString]
         [ExpectedTag(11)]
         public string EText { get; set; }
 

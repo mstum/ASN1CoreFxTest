@@ -57,6 +57,17 @@ namespace System.Security.Cryptography.Asn1
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    internal class GeneralStringAttribute : AsnTypeAttribute
+    {
+        public UniversalTagNumber EncodingType { get; }
+
+        public GeneralStringAttribute(UniversalTagNumber encodingType)
+        {
+            EncodingType = encodingType;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class SequenceOfAttribute : AsnTypeAttribute
     {
     }

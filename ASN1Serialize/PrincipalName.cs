@@ -15,7 +15,7 @@ namespace ASN1Serialize
         [ExpectedTag(0)]
         public NameType Type { get; set; }
 
-        [IA5String]
+        [KerberosString]
         [ExpectedTag(1)]
         public string[] Name { get; set; }
     }
