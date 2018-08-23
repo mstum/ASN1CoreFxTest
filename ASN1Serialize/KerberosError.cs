@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.Asn1;
 
 namespace ASN1Serialize
 {
@@ -19,20 +20,58 @@ namespace ASN1Serialize
     ///         e-data          [12] OCTET STRING OPTIONAL
     /// }
     /// </summary>
+    [SequenceOf]
+    [ExpectedTag(TagClass.Application, 30)]
     internal struct KerberosError
     {
+        [Integer]
+        [ExpectedTag(0)]
         public int ProtocolVersionNumber { get; set; }
+
+        [Integer]
+        [ExpectedTag(1)]
         public MessageType MessageType { get; set; }
+
+        [GeneralizedTime]
+        [ExpectedTag(2)]
         public DateTimeOffset CTime { get; set; }
+
+        [Integer]
+        [ExpectedTag(3)]
         public Microseconds? CUsec { get; set; }
+
+        [GeneralizedTime]
+        [ExpectedTag(4)]
         public DateTimeOffset STime { get; set; }
+
+        [Integer]
+        [ExpectedTag(5)]
         public Microseconds? SUsec { get; set; }
+
+        [Integer]
+        [ExpectedTag(6)]
         public KrbErrorCode ErrorCode { get; set; }
+
+        [IA5String]
+        [ExpectedTag(7)]
         public string CRealm { get; set; }
+
+        [ExpectedTag(8)]
         public PrincipalName CName { get; set; }
+
+        [IA5String]
+        [ExpectedTag(9)]
         public string ServiceRealm { get; set; }
+
+        [ExpectedTag(10)]
         public PrincipalName SName { get; set; }
+
+        [IA5String]
+        [ExpectedTag(11)]
         public string EText { get; set; }
+
+        [OctetString]
+        [ExpectedTag(12)]
         public byte[] EData { get; set; }
     }
 }
