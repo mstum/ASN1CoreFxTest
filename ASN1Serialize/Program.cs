@@ -3,9 +3,9 @@ using System.Security.Cryptography.Asn1;
 
 namespace ASN1Serialize
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             // Explanation below
             var bytes = new byte[] { 0x7e, 0x6a, 0x30, 0x68, 0xa0, 0x03, 0x02, 0x01, 0x05, 0xa1, 0x03, 0x02, 0x01, 0x1e, 0xa4, 0x11, 0x18, 0x0f, 0x32, 0x30, 0x31, 0x38, 0x30, 0x38, 0x30, 0x36, 0x32, 0x30, 0x33, 0x33, 0x30, 0x35, 0x5a, 0xa5, 0x05, 0x02, 0x03, 0x0d, 0xa5, 0x5f, 0xa6, 0x03, 0x02, 0x01, 0x34, 0xa9, 0x14, 0x1b, 0x12, 0x49, 0x4e, 0x54, 0x2e, 0x44, 0x45, 0x56, 0x44, 0x4f, 0x4d, 0x41, 0x49, 0x4e, 0x53, 0x2e, 0x4f, 0x52, 0x47, 0xaa, 0x27, 0x30, 0x25, 0xa0, 0x03, 0x02, 0x01, 0x02, 0xa1, 0x1e, 0x30, 0x1c, 0x1b, 0x06, 0x6b, 0x72, 0x62, 0x74, 0x67, 0x74, 0x1b, 0x12, 0x49, 0x4e, 0x54, 0x2e, 0x44, 0x45, 0x56, 0x44, 0x4f, 0x4d, 0x41, 0x49, 0x4e, 0x53, 0x2e, 0x4f, 0x52, 0x47 };
@@ -14,6 +14,27 @@ namespace ASN1Serialize
         }
     }
 }
+/* Given the bytes below, how would I expect Deserialization to work?
+ * AsnSerializer.Deserialize<KerberosError> indicates that the root object is KerberosError,
+ * so the very first tag should match the tag on KerberosError, in this case [Application 30].
+ * But now we are encountering a sequence - how to map that?
+ * 
+ * Looking at the structure, the sequence is a list of context-specific tags,
+ * and each tag is followed by another tag with an actual ASN.1 type.
+ * 
+ * So deserializing a custom object is like "Get the context tag, advance the reader, find the
+ * field or property that matches that tag, and then read into that.
+ * 
+ * However, some aliases only have 1 tag, e.g. Kerberostime, KerberosString or Microseconds are just
+ * Universal tags, no application specific ones.
+ * 
+ * Deserializing nested objects (e.g. PrincipalName) is just recursion, but what about e.g., Microseconds?
+ * Inherit from an ASN.1 Simple Type attribute? Add "Is Value Valid?" check (IIsValid<T>?)
+ * 
+ * There are potential other edge-cases, but this should work for Kerberos and possibly LDAP.
+ * That said, step 1 is to build a tree visualizer.
+ */
+
 /* bytes:
  * 
  * KRB-ERROR       ::= [APPLICATION 30] SEQUENCE
