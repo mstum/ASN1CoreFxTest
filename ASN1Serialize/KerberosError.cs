@@ -19,7 +19,7 @@ namespace ASN1Serialize
     ///         e-data          [12] OCTET STRING OPTIONAL
     /// }
     /// </summary>
-    internal class KerberosError
+    internal struct KerberosError
     {
         public int ProtocolVersionNumber { get; set; }
         public MessageType MessageType { get; set; }

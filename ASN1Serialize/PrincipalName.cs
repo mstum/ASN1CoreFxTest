@@ -6,7 +6,7 @@
     ///         name-string     [1] SEQUENCE OF KerberosString
     /// }
     /// </summary>
-    internal class PrincipalName
+    internal struct PrincipalName
     {
         public NameType Type { get; set; }
         public string[] Name { get; set; }
