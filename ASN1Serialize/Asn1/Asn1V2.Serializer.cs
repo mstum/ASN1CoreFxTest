@@ -1241,15 +1241,7 @@ namespace System.Security.Cryptography.Asn1
 
             bool isChoice = GetChoiceAttribute(typeT) != null;
 
-            ExpectedTagAttribute tagOverride;
-            if (fieldInfo == null)
-            {
-                tagOverride = typeT?.GetCustomAttribute<ExpectedTagAttribute>(false);
-            }
-            else
-            {
-                tagOverride = fieldInfo.GetCustomAttribute<ExpectedTagAttribute>(false);
-            }
+            ExpectedTagAttribute tagOverride = fieldInfo?.GetCustomAttribute<ExpectedTagAttribute>(false);
 
             if (tagOverride != null)
             {
