@@ -1,6 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
+using System.Collections.Generic;
+
 namespace System.Security.Cryptography.Asn1
 {
     internal abstract class AsnTypeAttribute : Attribute
@@ -77,6 +79,16 @@ namespace System.Security.Cryptography.Asn1
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class SequenceOfAttribute : AsnTypeAttribute
     {
+        internal Type FieldTypeAsnAttribute; // Make this an attribute? Any way to avoid Activator.CreateInstance?
+
+        public SequenceOfAttribute()
+        {
+        }
+
+        public SequenceOfAttribute(Type fieldType)
+        {
+            FieldTypeAsnAttribute = fieldType;
+        }
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]

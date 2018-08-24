@@ -59,6 +59,11 @@ namespace System.Security.Cryptography.Asn1
             _ruleSet = ruleSet;
         }
 
+        public AsnReader AdvanceReader(int bytes)
+        {
+            return new AsnReader(_data.Slice(bytes), _ruleSet);
+        }
+
         public void ThrowIfNotEmpty()
         {
             if (HasData)
@@ -2927,12 +2932,14 @@ namespace System.Security.Cryptography.Asn1
 
         private static void CheckExpectedTag(Asn1Tag tag, Asn1Tag expectedTag, UniversalTagNumber tagNumber)
         {
-            if (expectedTag.TagClass == TagClass.Universal && expectedTag.TagValue != (int)tagNumber)
+            // Commenting this out, because often we're dealing with tags that don't exactly match.
+            // For example, GeneralString with a different encoding, or Context-specific tags decoding into enums
+            /*if (expectedTag.TagClass == TagClass.Universal && expectedTag.TagValue != (int)tagNumber)
             {
                 throw new ArgumentException(
                     SR.Cryptography_Asn_UniversalValueIsFixed,
                     nameof(expectedTag));
-            }
+            }*/
 
             if (expectedTag.TagClass != tag.TagClass || expectedTag.TagValue != tag.TagValue)
             {

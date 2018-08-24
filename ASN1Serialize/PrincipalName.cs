@@ -15,7 +15,8 @@ namespace ASN1Serialize
         [ExpectedTag(0)]
         public NameType Type;
 
-        [KerberosString]
+        //[KerberosString]
+        [SequenceOf(typeof(KerberosStringAttribute))]
         [ExpectedTag(1)]
         public string[] Name;
     }

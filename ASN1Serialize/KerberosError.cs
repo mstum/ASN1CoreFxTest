@@ -38,7 +38,8 @@ namespace ASN1Serialize
 
         [Integer]
         [ExpectedTag(3)]
-        public Microseconds? CUsec;
+        //public Microseconds? CUsec;
+        public int? CUsec;
 
         [GeneralizedTime]
         [ExpectedTag(4)]
@@ -46,7 +47,8 @@ namespace ASN1Serialize
 
         [Integer]
         [ExpectedTag(5)]
-        public Microseconds? SUsec;
+        //public Microseconds? SUsec;
+        public int? SUsec;
 
         [Integer]
         [ExpectedTag(6)]
@@ -72,6 +74,6 @@ namespace ASN1Serialize
 
         [OctetString]
         [ExpectedTag(12)]
-        public byte[] EData;
+        public ReadOnlyMemory<byte>? EData;
     }
 }
