@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.Asn1;
+﻿using System.Runtime.InteropServices;
+using System.Security.Cryptography.Asn1;
 
 namespace ASN1Serialize
 {
@@ -9,6 +10,7 @@ namespace ASN1Serialize
     /// }
     /// </summary>
     [SequenceOf]
+    [StructLayout(LayoutKind.Sequential)]
     internal struct PrincipalName
     {
         [Integer]

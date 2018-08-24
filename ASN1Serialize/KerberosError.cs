@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.Asn1;
 
 namespace ASN1Serialize
@@ -22,6 +23,7 @@ namespace ASN1Serialize
     /// </summary>
     [SequenceOf]
     [ExpectedTag(TagClass.Application, 30)]
+    [StructLayout(LayoutKind.Sequential)]
     internal struct KerberosError
     {
         [Integer]
@@ -32,10 +34,12 @@ namespace ASN1Serialize
         [ExpectedTag(1)]
         public MessageType MessageType;
 
+        [OptionalValue]
         [GeneralizedTime]
         [ExpectedTag(2)]
-        public DateTimeOffset CTime;
+        public DateTimeOffset? CTime;
 
+        [OptionalValue]
         [Integer]
         [ExpectedTag(3)]
         //public Microseconds? CUsec;
@@ -54,12 +58,14 @@ namespace ASN1Serialize
         [ExpectedTag(6)]
         public KrbErrorCode ErrorCode;
 
+        [OptionalValue]
         [Realm]
         [ExpectedTag(7)]
         public string CRealm;
 
+        [OptionalValue]
         [ExpectedTag(8)]
-        public PrincipalName CName;
+        public PrincipalName? CName;
 
         [Realm]
         [ExpectedTag(9)]
@@ -68,10 +74,12 @@ namespace ASN1Serialize
         [ExpectedTag(10)]
         public PrincipalName SName;
 
+        [OptionalValue]
         [KerberosString]
         [ExpectedTag(11)]
         public string EText;
 
+        [OptionalValue]
         [OctetString]
         [ExpectedTag(12)]
         public ReadOnlyMemory<byte>? EData;
