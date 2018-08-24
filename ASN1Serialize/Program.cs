@@ -14,6 +14,17 @@ namespace ASN1Serialize
         }
     }
 }
+/* Attributes that are involed:
+ * 
+ * AsnTypeAttribute
+ * ExpectedTagAttribute
+ * DefaultValueAttribute
+ * OptionalValueAttribute
+ * FlagsAttribute
+ * ChoiceAttribute
+ * 
+ */
+
 /* Given the bytes below, how would I expect Deserialization to work?
  * AsnSerializer.Deserialize<KerberosError> indicates that the root object is KerberosError,
  * so the very first tag should match the tag on KerberosError, in this case [Application 30].

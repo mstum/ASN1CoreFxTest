@@ -8,6 +8,13 @@ namespace System.Security.Cryptography.Asn1
         internal AsnTypeAttribute()
         {
         }
+
+        // TODO: Overridable Methods to do custom De-/Serialization, Verification, etc.
+        // (e.g., Microseconds in an Integer between 0 and 999999. Or KdcFlags needs to be at least 32 Bits.
+        // Deserialize(Reader) => Do the entire deserialization
+        // AfterDeserialization(deserializedValue) => Use the default deserializer of the parent attribute,
+        //                                            but massage the value afterwards
+        // Validate(deserializedValue)
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]

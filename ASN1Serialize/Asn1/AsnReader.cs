@@ -13,6 +13,31 @@ using System.Text;
 
 namespace System.Security.Cryptography.Asn1
 {
+    /// <summary>
+    /// Important note: This is a class, but uses ReadOnlyMemory<byte> which is a special struct.
+    /// Do not pass around the reader by value, always pass it by ref.
+    /// 
+    /// And if you do something like ReadSequence() etc. that returns a new reader,
+    /// the old reader becomes useless.
+    /// 
+    /// var r1 = new AsnReader(bytes); // Assume that there are 100 bytes
+    /// var r2 = r1.ReadSequence();
+    /// r2 now contains 98 bytes of data (the original 100 bytes minus the Tag and Length byte)
+    /// r1 now contains 0 bytes of data. ZERO. The _data went to r2. Don't keep using r1.
+    /// 
+    /// Alternatively, assign the reader to itself:
+    /// var r1 = new AsnReader(bytes);
+    /// r1 = r1.ReadSequence();
+    /// 
+    /// And if you pass it, pass it by ref despite being a class:
+    /// 
+    /// var r1 = new AsnReader(bytes);
+    /// SomeMethod(ref r1);
+    /// private void SomeMethod(ref AsnReader reader) { 
+    ///     reader = reader.ReadSequence();
+    ///     // Process the sequence, making sure to keep using the reader variable
+    /// }
+    /// </summary>
     internal class AsnReader
     {
         // T-REC-X.690-201508 sec 9.2
