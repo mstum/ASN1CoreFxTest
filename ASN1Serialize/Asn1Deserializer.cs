@@ -408,6 +408,23 @@ namespace ASN1Serialize
                 fieldInfos[(etag.TagClass, etag.TagValue)] = field;
             }
 
+            // TODO: This now requires [ExpectedTag(int)] on each field.
+            // Not sure if that's a bad thing - mixing positional and ExpectedTag fields could be bad
+            // I need a FieldInfo to know what to deserialize into, so I need to know which one the
+            // "next" field in the sequence is.
+            //
+            // I think that changing GetOrderedFields would be the way, but then, how to deal with this struct?
+            //
+            // [ExpectedTag(0)]
+            // public string Foo;
+            //
+            // public int Bar;
+            //
+            // [ExpectedTag(1)
+            // public int Baz;
+            //
+            // This looks like something that should throw an exception for ambiguity?
+
             while (sequence.HasData)
             {
                 int? contentsLength;
