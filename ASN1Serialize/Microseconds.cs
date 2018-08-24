@@ -35,6 +35,8 @@ namespace ASN1Serialize
         public static bool IsValidValue(int value)
             => value >= 0 && value <= 999999;
 
+        public override string ToString() => Value + "μs";
+
         public override bool Equals(object obj)
             => obj is Microseconds && Equals((Microseconds)obj);
 

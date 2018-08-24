@@ -17,7 +17,7 @@ namespace ASN1Serialize
     /// </summary>
     internal static class Asn1Deserializer
     {
-        private delegate object Deserializer(AsnReader reader);
+        internal delegate object Deserializer(AsnReader reader);
         private delegate bool TryDeserializer<T>(AsnReader reader, out T value);
         private const BindingFlags FieldFlags
             = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
@@ -91,6 +91,14 @@ namespace ASN1Serialize
 
             SerializerFieldData localFieldData = fieldData;
             typeT = UnpackIfNullable(typeT);
+
+            // TODO: Should this be lower? In theory, if an Attribute implements Deserialize,
+            // it means that it has to do everything itself anyway.
+            var asnTypeDeserializer = localFieldData.AsnType?.Deserialize;
+            if (asnTypeDeserializer != null)
+            {
+                return asnTypeDeserializer;
+            }
 
             if (fieldData.IsAny)
             {
@@ -786,42 +794,60 @@ namespace ASN1Serialize
 
             if (typeAttrs.Length == 1)
             {
-                Type[] expectedTypes;
-                object attr = typeAttrs[0];
-                serializerFieldData.AsnType = attr as AsnTypeAttribute;
+                var attr = typeAttrs[0] as AsnTypeAttribute;
+                Type[] expectedTypes = attr.ExpectedTypes;
+                serializerFieldData.AsnType = attr;
                 serializerFieldData.WasCustomized = true;
+
+                
+                
 
                 if (attr is AnyValueAttribute)
                 {
                     serializerFieldData.IsAny = true;
-                    expectedTypes = new[] { typeof(ReadOnlyMemory<byte>) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(ReadOnlyMemory<byte>) };
+                    }
                 }
                 else if (attr is IntegerAttribute)
                 {
-                    expectedTypes = new[] {
-                        typeof(ReadOnlyMemory<byte>),
-                        typeof(BigInteger), 
-                        typeof(byte), typeof(sbyte),
-                        typeof(ushort), typeof(short),
-                        typeof(uint), typeof(int),
-                        typeof(ulong), typeof(long)                        
-                    };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] {
+                            typeof(ReadOnlyMemory<byte>),
+                            typeof(BigInteger),
+                            typeof(byte), typeof(sbyte),
+                            typeof(ushort), typeof(short),
+                            typeof(uint), typeof(int),
+                            typeof(ulong), typeof(long)
+                        };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.Integer;
                 }
                 else if (attr is BitStringAttribute)
                 {
-                    expectedTypes = new[] { typeof(ReadOnlyMemory<byte>) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(ReadOnlyMemory<byte>) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.BitString;
                 }
                 else if (attr is OctetStringAttribute)
                 {
-                    expectedTypes = new[] { typeof(ReadOnlyMemory<byte>) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(ReadOnlyMemory<byte>) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.OctetString;
                 }
                 else if (attr is ObjectIdentifierAttribute oid)
                 {
                     serializerFieldData.PopulateOidFriendlyName = oid.PopulateFriendlyName;
-                    expectedTypes = new[] { typeof(Oid), typeof(string) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(Oid), typeof(string) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.ObjectIdentifier;
 
                     if (oid.PopulateFriendlyName && unpackedType == typeof(string))
@@ -836,44 +862,65 @@ namespace ASN1Serialize
                 }
                 else if (attr is BMPStringAttribute)
                 {
-                    expectedTypes = new[] { typeof(string) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(string) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.BMPString;
                 }
                 else if (attr is IA5StringAttribute)
                 {
-                    expectedTypes = new[] { typeof(string) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(string) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.IA5String;
                 }
                 else if (attr is UTF8StringAttribute)
                 {
-                    expectedTypes = new[] { typeof(string) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(string) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.UTF8String;
                 }
                 else if (attr is PrintableStringAttribute)
                 {
-                    expectedTypes = new[] { typeof(string) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(string) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.PrintableString;
                 }
                 else if (attr is VisibleStringAttribute)
                 {
-                    expectedTypes = new[] { typeof(string) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(string) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.VisibleString;
                 }
                 else if (attr is SequenceOfAttribute)
                 {
                     serializerFieldData.IsCollection = true;
-                    expectedTypes = new Type[] { GetArrayItemType(fieldInfo.FieldType) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new Type[] { GetArrayItemType(fieldInfo.FieldType) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.SequenceOf;
                 }
                 else if (attr is SetOfAttribute)
                 {
                     serializerFieldData.IsCollection = true;
-                    expectedTypes = null;
+                    //expectedTypes = null;
                     serializerFieldData.TagType = UniversalTagNumber.SetOf;
                 }
                 else if (attr is UtcTimeAttribute utcAttr)
                 {
-                    expectedTypes = new[] { typeof(DateTimeOffset) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(DateTimeOffset) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.UtcTime;
 
                     if (utcAttr.TwoDigitYearMax != 0)
@@ -893,13 +940,19 @@ namespace ASN1Serialize
                 }
                 else if (attr is GeneralizedTimeAttribute genTimeAttr)
                 {
-                    expectedTypes = new[] { typeof(DateTimeOffset) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(DateTimeOffset) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.GeneralizedTime;
                     serializerFieldData.DisallowGeneralizedTimeFractions = genTimeAttr.DisallowFractions;
                 }
                 else if (attr is GeneralStringAttribute genStrAttr) // Must come after more specific string attributes!
                 {
-                    expectedTypes = new[] { typeof(string) };
+                    if (expectedTypes == null)
+                    {
+                        expectedTypes = new[] { typeof(string) };
+                    }
                     serializerFieldData.TagType = UniversalTagNumber.GeneralString;
                 }
                 else

@@ -7,6 +7,9 @@ namespace System.Security.Cryptography.Asn1
 {
     internal abstract class AsnTypeAttribute : Attribute
     {
+        internal virtual Type[] ExpectedTypes { get; } = null;
+        internal virtual ASN1Serialize.Asn1Deserializer.Deserializer Deserialize { get; } = null;
+
         internal AsnTypeAttribute()
         {
         }
@@ -20,48 +23,48 @@ namespace System.Security.Cryptography.Asn1
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class OctetStringAttribute : AsnTypeAttribute
+    internal class OctetStringAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class BitStringAttribute : AsnTypeAttribute
+    internal class BitStringAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class AnyValueAttribute : AsnTypeAttribute
+    internal class AnyValueAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class ObjectIdentifierAttribute : AsnTypeAttribute
+    internal class ObjectIdentifierAttribute : AsnTypeAttribute
     {
         public bool PopulateFriendlyName { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class BMPStringAttribute : AsnTypeAttribute
+    internal class BMPStringAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class IA5StringAttribute : AsnTypeAttribute
+    internal class IA5StringAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class UTF8StringAttribute : AsnTypeAttribute
+    internal class UTF8StringAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class PrintableStringAttribute : AsnTypeAttribute
+    internal class PrintableStringAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class VisibleStringAttribute : AsnTypeAttribute
+    internal class VisibleStringAttribute : AsnTypeAttribute
     {
     }
 
@@ -77,7 +80,7 @@ namespace System.Security.Cryptography.Asn1
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class SequenceOfAttribute : AsnTypeAttribute
+    internal class SequenceOfAttribute : AsnTypeAttribute
     {
         internal Type FieldTypeAsnAttribute; // Make this an attribute? Any way to avoid Activator.CreateInstance?
         // Possibly best to add some sort of "Priority" or similar property to AsnType, so I can do:
@@ -101,23 +104,23 @@ namespace System.Security.Cryptography.Asn1
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class SetOfAttribute : AsnTypeAttribute
+    internal class SetOfAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class IntegerAttribute : AsnTypeAttribute
+    internal class IntegerAttribute : AsnTypeAttribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class UtcTimeAttribute : AsnTypeAttribute
+    internal class UtcTimeAttribute : AsnTypeAttribute
     {
         public int TwoDigitYearMax { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
-    internal sealed class GeneralizedTimeAttribute : AsnTypeAttribute
+    internal class GeneralizedTimeAttribute : AsnTypeAttribute
     {
         public bool DisallowFractions { get; set; }
     }

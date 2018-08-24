@@ -40,19 +40,17 @@ namespace ASN1Serialize
         public DateTimeOffset? CTime;
 
         [OptionalValue]
-        [Integer]
+        [Microseconds]
         [ExpectedTag(3)]
-        //public Microseconds? CUsec;
-        public int? CUsec;
+        public Microseconds? CUsec;
 
         [GeneralizedTime]
         [ExpectedTag(4)]
         public DateTimeOffset STime;
 
-        [Integer]
+        [Microseconds]
         [ExpectedTag(5)]
-        //public Microseconds? SUsec;
-        public int? SUsec;
+        public Microseconds SUsec;
 
         [Integer]
         [ExpectedTag(6)]
