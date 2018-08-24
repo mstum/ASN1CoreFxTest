@@ -10,53 +10,53 @@ namespace System.Security.Cryptography.Asn1
         }
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class OctetStringAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class BitStringAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class AnyValueAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class ObjectIdentifierAttribute : AsnTypeAttribute
     {
         public bool PopulateFriendlyName { get; set; }
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class BMPStringAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class IA5StringAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class UTF8StringAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class PrintableStringAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class VisibleStringAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal class GeneralStringAttribute : AsnTypeAttribute
     {
         public UniversalTagNumber EncodingType { get; }
@@ -67,28 +67,28 @@ namespace System.Security.Cryptography.Asn1
         }
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class SequenceOfAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class SetOfAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class IntegerAttribute : AsnTypeAttribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class UtcTimeAttribute : AsnTypeAttribute
     {
         public int TwoDigitYearMax { get; set; }
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class GeneralizedTimeAttribute : AsnTypeAttribute
     {
         public bool DisallowFractions { get; set; }

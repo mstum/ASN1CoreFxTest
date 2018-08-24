@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 namespace System.Security.Cryptography.Asn1
 {
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Struct | AttributeTargets.Class)]
     internal sealed class ExpectedTagAttribute : Attribute
     {
         public TagClass TagClass { get; }

@@ -26,52 +26,52 @@ namespace ASN1Serialize
     {
         [Integer]
         [ExpectedTag(0)]
-        public int ProtocolVersionNumber { get; set; }
+        public int ProtocolVersionNumber;
 
         [Integer]
         [ExpectedTag(1)]
-        public MessageType MessageType { get; set; }
+        public MessageType MessageType;
 
         [GeneralizedTime]
         [ExpectedTag(2)]
-        public DateTimeOffset CTime { get; set; }
+        public DateTimeOffset CTime;
 
         [Integer]
         [ExpectedTag(3)]
-        public Microseconds? CUsec { get; set; }
+        public Microseconds? CUsec;
 
         [GeneralizedTime]
         [ExpectedTag(4)]
-        public DateTimeOffset STime { get; set; }
+        public DateTimeOffset STime;
 
         [Integer]
         [ExpectedTag(5)]
-        public Microseconds? SUsec { get; set; }
+        public Microseconds? SUsec;
 
         [Integer]
         [ExpectedTag(6)]
-        public KrbErrorCode ErrorCode { get; set; }
+        public KrbErrorCode ErrorCode;
 
         [Realm]
         [ExpectedTag(7)]
-        public string CRealm { get; set; }
+        public string CRealm;
 
         [ExpectedTag(8)]
-        public PrincipalName CName { get; set; }
+        public PrincipalName CName;
 
         [Realm]
         [ExpectedTag(9)]
-        public string ServiceRealm { get; set; }
+        public string ServiceRealm;
 
         [ExpectedTag(10)]
-        public PrincipalName SName { get; set; }
+        public PrincipalName SName;
 
         [KerberosString]
         [ExpectedTag(11)]
-        public string EText { get; set; }
+        public string EText;
 
         [OctetString]
         [ExpectedTag(12)]
-        public byte[] EData { get; set; }
+        public byte[] EData;
     }
 }

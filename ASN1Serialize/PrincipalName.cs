@@ -13,10 +13,10 @@ namespace ASN1Serialize
     {
         [Integer]
         [ExpectedTag(0)]
-        public NameType Type { get; set; }
+        public NameType Type;
 
         [KerberosString]
         [ExpectedTag(1)]
-        public string[] Name { get; set; }
+        public string[] Name;
     }
 }
