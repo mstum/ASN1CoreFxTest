@@ -11,7 +11,7 @@ namespace ASN1Serialize
     /// </summary>
     [SequenceOf]
     [StructLayout(LayoutKind.Sequential)]
-    internal struct PrincipalName
+    internal sealed class PrincipalName
     {
         [Integer]
         [ExpectedTag(0)]

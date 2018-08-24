@@ -81,6 +81,7 @@ namespace ASN1Serialize
             AsnTypeAttribute parentAsnType,
             out SerializerFieldData fieldData)
         {
+            // TODO: Why does the Type need to be sealed?
             if (!typeT.IsSealed || typeT.ContainsGenericParameters)
             {
                 throw new AsnSerializationConstraintException(

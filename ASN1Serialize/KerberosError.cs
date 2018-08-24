@@ -24,7 +24,7 @@ namespace ASN1Serialize
     [SequenceOf]
     [ExpectedTag(TagClass.Application, 30)]
     [StructLayout(LayoutKind.Sequential)]
-    internal struct KerberosError
+    internal sealed class KerberosError
     {
         [Integer]
         [ExpectedTag(0)]
@@ -63,7 +63,7 @@ namespace ASN1Serialize
 
         [OptionalValue]
         [ExpectedTag(8)]
-        public PrincipalName? CName;
+        public PrincipalName CName;
 
         [Realm]
         [ExpectedTag(9)]
