@@ -80,6 +80,15 @@ namespace System.Security.Cryptography.Asn1
     internal sealed class SequenceOfAttribute : AsnTypeAttribute
     {
         internal Type FieldTypeAsnAttribute; // Make this an attribute? Any way to avoid Activator.CreateInstance?
+        // Possibly best to add some sort of "Priority" or similar property to AsnType, so I can do:
+        //
+        // [GeneralString(UniversalTagNumber.IA5String)]
+        // [SequenceOf]
+        // [ExpectedTag(1)]
+        // public string[] Name;
+        //
+        // But really, it's an array - why need the [SequenceOf] at all?
+        // In theory, any IEnumerable that's not a string could be implicitly a Sequence.
 
         public SequenceOfAttribute()
         {
